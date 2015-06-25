@@ -25,13 +25,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav pull-right">
                     <li>
-                        <a href="../index.html">Blog</a>
+                        <a href="index.html">Blog</a>
                     </li>
                     <li onclick="loadAddPost();">
                         <a>Add New Post</a>
                     </li>
                     <li onclick="loadNewCategory();">
                         <a>Add New Category</a>
+                    </li>
+                    <li >
+                        <a> Sign out</a>
                     </li>
                 </ul>
             </div>
@@ -45,7 +48,6 @@
             <div class="col-lg-8">
                 <div class="panel panel-default">
                     <div class="panel-body" id="element">
-                    posts here
                   </div>
                 </div>
             </div>
@@ -55,10 +57,7 @@
                     <div class="panel panel-default">
                         <div class=" panel-body">
                             <p>Categories</p>
-                            <ul class="list-group" id="cat">
-
-                              
-                            </ul>
+                            <ul class="list-group" id="cat"></ul>
                         </div>
                         
                     </div>

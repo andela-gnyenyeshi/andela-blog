@@ -1,11 +1,29 @@
-<!DOCTYPE html>
+<!DOCTYPE html 5>
 <html>
 <head>
     <title>AndelaBlog</title>
     <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/blog-post.css" rel="stylesheet">
+    <script>
+    window.fbAsyncInit = function() {
+         FB.init({
+         appId      : '765838960201925',
+         xfbml      : true,
+        version    : 'v2.3'
+         });
+      };
+
+        (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_US/sdk.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+</script>
 </head>
 <body>
     <!-- Navigation -->
@@ -28,10 +46,10 @@
                         <a href="index.html">Blog</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a onclick="register()">Register</a>
                     </li>
                     <li>
-                        <a href="admin/index.html">Login</a>
+                        <a onclick="loginUser()">Login</a>
                     </li>
                 </ul>
             </div>
@@ -43,31 +61,51 @@
         <div class="row">
             <!-- Blog Post Content Column -->
             <div class="col-lg-8">
-                <div id='messagesDiv'>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Posts</div>
+                    <div class="panel-body" id="messagesDiv"></div>
                 </div>
             </div>
 
             <div class="col-lg-4">
-                <div class="well">
-                    <h4>Blog Categories</h4>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <ul  id="cat"></ul>
-                        </div>
-                        
-                    </div>
-                    <!-- /.row -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">Recents Posts</div>
+                        <div class=" panel-body">
+                            <ul class="list-group" id="recentPosts"></ul>
+                        </div> 
                 </div>
 
-                
+                <div class="panel panel-default">
+                    <div class="panel-heading">categories</div>
+                        <div class=" panel-body">
+                            <ul class="list-group" id="cat"></ul>
+                        </div> 
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- login modal-->
+    <div class="modal fade loginModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Login</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="User Email" required><br>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="User Password" required>
+                </div>
+                <div class="modal-footer">
+                   <a href="admin/index.html"> <button  type="submit" class="btn btn-primary btn-sm">Sign in</button></a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 <script type="text/javascript">
   
 </script>
-<script src='js/bootstrap.js'></script>
-<script src='js/jquery.js'></script>
 <script src='js/global.js'></script>
 <script src='js/moment.js'></script>
 </body>
