@@ -1,11 +1,29 @@
-<!DOCTYPE html>
+<!DOCTYPE html 5>
 <html>
 <head>
     <title>AndelaBlog</title>
     <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/blog-post.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/blog-post.css" rel="stylesheet">
+    <script>
+    window.fbAsyncInit = function() {
+         FB.init({
+         appId      : '765838960201925',
+         xfbml      : true,
+        version    : 'v2.3'
+         });
+      };
+
+        (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_US/sdk.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+</script>
 </head>
 <body>
     <!-- Navigation -->
@@ -25,16 +43,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav pull-right">
                     <li>
-                        <a href="../home.html">Blog</a>
+                        <a href="admin/index.html">Manage Blog</a>
                     </li>
-                    <li onclick="loadAddPost();">
-                        <a>Add New Post</a>
-                    </li>
-                    <li onclick="loadNewCategory();">
-                        <a>Add New Category</a>
-                    </li>
-                    <li >
-                        <a href="../index.html"> Sign out</a>
+                    <li>
+                        <a href="index.html"> logout</a>
                     </li>
                 </ul>
             </div>
@@ -47,29 +59,24 @@
             <!-- Blog Post Content Column -->
             <div class="col-lg-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading" id="panel">Posts</div>
-                    <div class="panel-body" id="element"></div>
+                    <div class="panel-heading">Posts</div>
+                    <div class="panel-body" id="messagesDiv"></div>
                 </div>
             </div>
+
             <div class="col-lg-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading" id="panel">Recents Posts</div>
-                    <div class=" panel-body">
-                        <ul class="list-group" id="recentPosts"></ul>
-                    </div> 
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" id="panel">categories</div>
+                    <div class="panel-heading">Recents Posts</div>
                         <div class=" panel-body">
-                            <ul class="list-group" id="cat"></ul>
+                            <ul class="list-group" id="recentPosts"></ul>
                         </div> 
                 </div>
-            </div>
         </div>
     </div>
-<script src='../js/bootstrap.js'></script>
-<script src='../js/jquery.js'></script>
-<script src='../js/global.js'></script>
-<script src='../js/moment.js'></script>
+<script type="text/javascript">
+  
+</script>
+<script src='js/global.js'></script>
+<script src='js/moment.js'></script>
 </body>
 </html>

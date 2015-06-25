@@ -133,23 +133,30 @@ var buildCategoryOptions = function() {
 //function to load the new category
 var loadNewCategory = function() {
   $('div#element').html('');
-  for( var i=0; i<catId.length; i++) {
-    $('option#newid').append("<option value='" + catId[i] +"'>"+ catId[i] +"</option>")
-  }
-  $('div#element').append('<div  class="well"><p class="post">Add New category</p><hr><div class=""><select id="catId" class="form-control"><option id="newid" >select</option><option value="2">2</option></select><br><input type="text" class="form-control" id="category" placeholder=" Category"><br><textarea id="description" class="form-control"></textarea><br><button type="submit" class="btn btn-primary btn-sm" id="addcat">Add Post</button><br></div></div>');
-}
+  var div1 = '<div  class="well"><p class="post">Add New category</p><hr>';
+  var div2 = '<div class=""><br>';
+  var input = '<input type="text" class="form-control" id="category" placeholder=" Category"><br>';
+  var textarea = '<textarea id="description" class="form-control"></textarea><br>';
+  var lastElement = '<button type="submit" class="btn btn-primary btn-sm" id="addcat">Add Post</button><br></div></div>';
+  var form = div1 + div2 + input + textarea + lastElement;
+  var element = $('div#element');
+  element.append(form);
+};
   
 
-//user login
- var loginUser = function() {
-   var ref = new Firebase("https://andelablog.firebaseio.com");
-    ref.authWithOAuthPopup("facebook", function(error, authData) {
-       if (error) {
-          console.log("Login Failed!", error);
-            } else {
-          console.log("Authenticated successfully with payload:", authData);
-       }
-    });
-
-
+var logUser = function() {
+  var ref = new Firebase("https://andelablog.firebaseio.com");
+  ref.authWithOAuthPopup("google", function(error, authData) {
+    if (error) {
+      console.log("Login Failed!", error);
+    } else {
+     console.log("Authenticated successfully with payload:", authData);
+     window.location.replace("admin/index.html");
+   }
+  });
 }
+
+
+
+
+
