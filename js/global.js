@@ -168,7 +168,7 @@ var logUser = function() {
           });
         }
       });
-     window.location.replace("admin/index.html");
+     window.location.replace("/index.html");
    }
 
    console.log("YOU GOOGLE NAME", authData.google.displayName)
