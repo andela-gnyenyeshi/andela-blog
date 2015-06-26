@@ -34,7 +34,7 @@ function displayPosts(title, body,category,time) {
     var postDiv = $('div#messagesDiv');
     var postElement = $('div#element');
     postDiv.append("<div class='well'><p class='title'>" + category+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Title:" + title +" </p><p class='body'>" + body+"</p><p>" + when +" <em class='pull-right'>" +fromNow + "</em></p></div>");
-    postElement.append("<div class='well'><p class='title'>" + category+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Title:" + title +" </p><p class='body'>" + body+"</p><p>" + when +" <em class='pull-right'>" +fromNow + "</em></p></div>");
+    postElement.append("<div class='well'><p class='title'>" + category+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Title:" + title +" </p><p class='body'>" + body+"</p><p>" + when +"<i onclick = >comment<i> <em class='pull-right'>" +fromNow + "</em></p></div>");
 
 }};
 
@@ -136,16 +136,15 @@ var loadNewCategory = function() {
   var div2 = '<div class=""><br>';
   var input = '<input type="text" class="form-control" id="category" placeholder=" Category"><br>';
   var textarea = '<textarea id="description" class="form-control"></textarea><br>';
-  var lastElement = '<button type="submit" class="btn btn-primary btn-sm" id="addcat">Add Post</button><br></div></div>';
+  var lastElement = '<button type="submit" class="btn btn-primary btn-sm" id="addcat">Add category </button><br></div></div>';
   var form = div1 + div2 + input + textarea + lastElement;
   var element = $('div#messagesDiv');
   element.append(form);
 };
-  
-
+ 
+ //login users through google 
+var logRef = new Firebase("https://andelablog.firebaseio.com");
 var logUser = function() {
-  var logRef = new Firebase("https://andelablog.firebaseio.com");
-
   var isNewUser = true;
 
   logRef.authWithOAuthPopup("google", function(error, authData) {
@@ -173,7 +172,7 @@ var logUser = function() {
    }
 
    console.log("YOU GOOGLE NAME", authData.google.displayName)
-        $('.nav.navbar-nav ul').append('<li id="google-name">' + authData.google.displayName + '</li>');
+        $('div#name').append('<li id="google-name">' + authData.google.displayName + '</li>');
   });
 }
 
@@ -228,3 +227,15 @@ var displayComment  = function(name,body) {
 
   displayDiv.append(combinedTags);
 }
+
+
+logRef.onAuth(function(authData) {
+    if (authData) {
+        console.log("Authenticated with uid:", authData.uid);
+        $('#username').text(authData.google.cachedUserProfile.name);
+        $("#picture").attr("src",authData.google.cachedUserProfile.picture);
+        
+    } else {
+        console.log("Client unauthenticated.");
+    }
+});

@@ -25,7 +25,7 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav pull-right">
+                <ul class="nav navbar-nav pull-right" id="name">
                     <li>
                         <a href="../home.html">Blog</a>
                     </li>
@@ -35,10 +35,10 @@
                     <li onclick="loadNewCategory();">
                         <a>Add New Category</a>
                     </li>
-                    <li >
-                        <a href="../index.html"> Sign out</a>
-                    </li>
+                    <li><a href=""><img id="picture" class="user-image"><i id="username"></i></a></li>
+                    <li><a onclick="logOut()"> logout</a></li>
                 </ul>
+            </div>
             </div>
             <!-- /.navbar-collapse -->
         </div>
