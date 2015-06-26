@@ -1,9 +1,7 @@
 var postRef = new Firebase('https://andelablog.firebaseio.com/posts');
-  var category ="";
-  var catId = [];
   var categoryArray = [];
 //posting the new posts to firebase
-$('#element').on('click', '#addPost', function () {
+$('#messagesDiv').on('click', '#addPost', function () {
     var title = $('#titleInput').val();
     var body = $('#bodyInput').val();
     var category = $('#catInput').val();
@@ -67,7 +65,7 @@ function listClicked(post) {
 //posting the categories
 var catRef = new Firebase('https://andelablog.firebaseio.com/categories');
 
-$('#element').on('click', '#addcat', function () {
+$('#messagesDiv').on('click', '#addcat', function () {
   var catId = $('#catId').val();
   var category = $('#category').val();
   var description = $('#description').val();
@@ -230,4 +228,3 @@ var displayComment  = function(name,body) {
 
   displayDiv.append(combinedTags);
 }
-
