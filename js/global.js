@@ -54,6 +54,7 @@ function recentPostsDisplay(category,title) {
 //function to display specific posts
 function listClicked(post) {
   var postDiv = $('div#messagesDiv');
+  var elDiv = $('div#element');
   postDiv.html('');
   postRef.on('child_added', function(snapshot) {
     var message = snapshot.val();
@@ -85,14 +86,14 @@ catRef.on('child_added', function(snapshot) {
 }); 
 
 //display the categories
-function catDisplay(catId,category) {
+ var catDisplay = function(catId,category) {
   var catDiv = $("ul#cat");
   catDiv.append("<li class='list-group-item' onclick='catClicked(\""+category+"\");'><a >" + category + "</a></li>");
 }
 
 
 //function to display specific posts
-function catClicked(categ) {
+ var catClicked = function(categ) {
   var catClickDiv = $('div#messagesDiv');
   catClickDiv.html('');
   catClickDiv.html('');
@@ -117,7 +118,7 @@ var buildCategoryOptions = function() {
 
 //function to load the add new post
  var loadAddPost = function (){
-  var element = $('div#element');
+  var element = $('div#messagesDiv');
   element.html('');
   var div = '<div  class="well"><p class="post">Add New Post</p><hr><div class="">';
   var select = '<select id="catInput" class="form-control">';
@@ -132,31 +133,101 @@ var buildCategoryOptions = function() {
 
 //function to load the new category
 var loadNewCategory = function() {
-  $('div#element').html('');
+  $('div#messagesDiv').html('');
   var div1 = '<div  class="well"><p class="post">Add New category</p><hr>';
   var div2 = '<div class=""><br>';
   var input = '<input type="text" class="form-control" id="category" placeholder=" Category"><br>';
   var textarea = '<textarea id="description" class="form-control"></textarea><br>';
   var lastElement = '<button type="submit" class="btn btn-primary btn-sm" id="addcat">Add Post</button><br></div></div>';
   var form = div1 + div2 + input + textarea + lastElement;
-  var element = $('div#element');
+  var element = $('div#messagesDiv');
   element.append(form);
 };
   
 
 var logUser = function() {
-  var ref = new Firebase("https://andelablog.firebaseio.com");
-  ref.authWithOAuthPopup("google", function(error, authData) {
+  var logRef = new Firebase("https://andelablog.firebaseio.com");
+
+  var isNewUser = true;
+
+  logRef.authWithOAuthPopup("google", function(error, authData) {
     if (error) {
       console.log("Login Failed!", error);
     } else {
-     console.log("Authenticated successfully with payload:", authData);
+      logRef.onAuth(function(authData) {
+        if(authData && isNewUser) {
+          logRef.child("users").child(authData.uid).set({
+            provider: authData.provider,
+            token: authData.token,
+            providerId:authData.google.id,
+            UserName:authData.google.displayName
+          });
+        }else{
+          logRef.child("users").child(authData.uid).update({
+            provider: authData.provider,
+            token: authData.token,
+            providerId:authData.google.id,
+            UserName:authData.google.displayName
+          });
+        }
+      });
      window.location.replace("admin/index.html");
    }
+
+   console.log("YOU GOOGLE NAME", authData.google.displayName)
+        $('.nav.navbar-nav ul').append('<li id="google-name">' + authData.google.displayName + '</li>');
   });
 }
 
+//dispaly user data
+// logRef.on
 
 
+var logOut = function(){
+  logRef.unauth();
+  window.location.replace("/index.html");
+}
 
+
+//function to create the comments
+var commentRef = new Firebase("https://andelablog.firebaseio.com/comments");
+
+var comment = function(title) {
+  var commentId = $('#comment');
+  var nameId = $('#name');
+  var name = nameId.val();
+  var comment = commentId.val();
+  commentRef.push({title:title,name: name, comment:body});
+  commentId.val('');
+
+};
+
+
+//function to retrive the comments
+var retrieveComments = function(title) {
+  commentRef.on('value', function(comSnap){
+    var comment = comSnap.val();
+    if(comment.title === title ) {
+      displayComment(comment.name, comment.body);
+    }
+  });
+}
+
+//function to display the comments
+
+var displayComment  = function(name,body) {
+  var displayDiv = $('messagesDiv');
+  displayDiv.html('');
+  //create the html for the posts
+  var divPanel = '<div class="panel panel-default">';
+  var divPanelBody = '<div class="panel-body">';
+  var ptag = '<p>';
+  var ptag1 = '</p>';
+  var closeDivs = '</div></div>';
+  var combinedTags = divPanel + divPanelBody + ptag + name + ptag1 + ptag + body + ptag1 + closeDivs; 
+  
+  //display them on the display div
+
+  displayDiv.append(combinedTags);
+}
 
